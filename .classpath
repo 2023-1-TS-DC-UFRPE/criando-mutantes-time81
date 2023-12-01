@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia/src"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia/test"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia2/src"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia2/test"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia3/src"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia3/test"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia4/src"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia4/test"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia5/src"/>
+	<classpathentry kind="src" path="banco-exemplo-interface-gerencia5/test"/>
+	<classpathentry kind="lib" path="banco-exemplo-interface-gerencia/lib/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="banco-exemplo-interface-gerencia2/lib/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="banco-exemplo-interface-gerencia3/lib/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="banco-exemplo-interface-gerencia4/lib/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="lib" path="banco-exemplo-interface-gerencia5/lib/mockito-all-1.9.5.jar"/>
+	<classpathentry kind="output" path="banco-exemplo-interface-gerencia/bin"/>
+</classpath>
