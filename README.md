@@ -24,7 +24,7 @@ O erro no quarto mutante está presente na classe Poupanca no método renderJuro
 
 # Mutante 5
 
-O erro no quarto mutante está presente na classe Conta no método debitar, o saldo atribuído é inválido pois a subtração entre o o valor debitado e o saldo
+O erro no quinto mutante está presente na classe Conta no método debitar, o saldo atribuído é inválido pois a subtração entre o o valor debitado e o saldo
 ira gerar um número negativo
 
 
