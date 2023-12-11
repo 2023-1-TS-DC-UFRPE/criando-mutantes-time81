@@ -12,11 +12,14 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import br.ufrpe.poo.banco.dados.RepositorioClientesArquivoBin;
 import br.ufrpe.poo.banco.dados.RepositorioContasArquivoBin;
 import br.ufrpe.poo.banco.exceptions.AtualizacaoNaoRealizadaException;
 import br.ufrpe.poo.banco.exceptions.ClienteJaCadastradoException;
+import br.ufrpe.poo.banco.exceptions.ClienteJaPossuiContaException;
 import br.ufrpe.poo.banco.exceptions.ClienteNaoCadastradoException;
 import br.ufrpe.poo.banco.exceptions.ClienteNaoPossuiContaException;
+import br.ufrpe.poo.banco.exceptions.ContaJaAssociadaException;
 import br.ufrpe.poo.banco.exceptions.ContaJaCadastradaException;
 import br.ufrpe.poo.banco.exceptions.ContaNaoEncontradaException;
 import br.ufrpe.poo.banco.exceptions.InicializacaoSistemaException;
@@ -87,6 +90,17 @@ public class TesteBanco {
 		
 	}
 	
+	@Test(expected = ClienteJaCadastradoException.class)
+	public void testeCadastrarClienteExistente() throws ClienteNaoCadastradoException, RepositorioException, ClienteJaCadastradoException {
+		
+		Cliente c1 = new Cliente("testt", "testtt");
+		
+		banco.cadastrarCliente(c1);
+		banco.cadastrarCliente(c1);
+		fail("Excecao ClienteJaCadastradoException nao levantada");
+		
+	}
+	
 	
 	@Test(expected = ContaNaoEncontradaException.class)
 	public void testeRemoverContaInexistente() throws RepositorioException,
@@ -120,12 +134,45 @@ public class TesteBanco {
 		
 	}
 	
+	
+	@Test
+	public void testeAssociarClienteExistenteContaExistente( ) throws RepositorioException, ClienteJaCadastradoException, ClienteJaPossuiContaException, ContaJaAssociadaException, ClienteNaoCadastradoException, ContaJaCadastradaException {
+		
+		
+		Cliente cl = new Cliente("teste","teste");
+		Conta co = new Conta("teste",0);
+		banco.cadastrarCliente(cl);
+		banco.cadastrar(co);
+		banco.associarConta(cl.getCpf(),co.getNumero());
+		assertFalse(!(cl.contas.contains(co.getNumero())));
+	}
+	
+	@Test
+	public void testeAssociarClienteExistenteContaInexistente( ) throws RepositorioException, ClienteJaCadastradoException, ClienteJaPossuiContaException, ContaJaAssociadaException, ClienteNaoCadastradoException {
+		
+		
+		Cliente cl = new Cliente("teste","teste");
+		banco.cadastrarCliente(cl);
+		banco.associarConta(cl.getCpf(), null);
+		
+	}
+	
+	@Test
+	public void testeAssociarClienteInexistente( ) throws RepositorioException, ClienteJaCadastradoException, ClienteJaPossuiContaException, ContaJaAssociadaException, ClienteNaoCadastradoException {
+		
+		
+		Cliente cl = new Cliente("teste","teste");
+		banco.associarConta(cl.getCpf(), null);
+		
+	}
+	
 	@Test(expected = ClienteNaoCadastradoException.class)
 	public void testeRemoverClienteInexistente() throws RepositorioException,
 			ContaJaCadastradaException, ContaNaoEncontradaException,
 			InicializacaoSistemaException, ClienteNaoPossuiContaException, ClienteJaCadastradoException, ClienteNaoCadastradoException {
 		
-		Cliente c = new Cliente("saaaa","safasfasdf");
+		Cliente c = new Cliente("saaaa","3721039");
+		c.contas = null;
 		
 		banco.removerCliente(c.getCpf());
 
@@ -402,5 +449,40 @@ public class TesteBanco {
 		fail("Excecao ClienteNaoCadastradoException nao levantada");
 		
 	}
+	
+	@Test
+	public void getInstanceNaoNulo() throws RepositorioException, InicializacaoSistemaException {
+		
+		Banco b = null;
+		
+		try {
+			 b = new Banco(new RepositorioClientesArquivoBin(), new RepositorioContasArquivoBin());
+		} catch (RepositorioException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		
+		}
+		
+		Banco b2 = b.getInstance();
+		
+		
+		
+	}
+	
+	@Test(expected = RepositorioException.class)
+	public void getInstanceRepositorioVazio() throws RepositorioException, InicializacaoSistemaException {
+		
+		Banco b = null;
+		
+		b.instance.clientes = null;
+		b.instance.contas = null;
+		
+		Banco b2 = b.getInstance();
+		
+		fail("Excecao RepositorioException nao levantada");
+		
+		
+	}
+	
 	
 }

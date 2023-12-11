@@ -10,7 +10,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+import br.ufrpe.poo.banco.exceptions.InicializacaoSistemaException;
+import br.ufrpe.poo.banco.exceptions.RepositorioException;
 import br.ufrpe.poo.banco.exceptions.SaldoInsuficienteException;
+import br.ufrpe.poo.banco.exceptions.ValorInvalidoException;
 
 @RunWith(Parameterized.class)
 public class TesteTransferencia {
@@ -55,5 +58,13 @@ public class TesteTransferencia {
 		assertEquals(this.saldoOrigemDepois, origem.getSaldo(), 0);
 		assertEquals(this.saldoDestinoDepois, destino.getSaldo(), 0);
 	}
+	
+	@Test
+	public void testeTransferenciaEntreContasInvalida() throws SaldoInsuficienteException, RepositorioException, ValorInvalidoException, InicializacaoSistemaException {
+		Conta origem = new Conta("1", this.saldoOrigemAntes);
+		Conta destino = new Conta("-021",21412);
+		Banco.getInstance().transferir(origem, destino , 200);
+	}
+	
 
 }

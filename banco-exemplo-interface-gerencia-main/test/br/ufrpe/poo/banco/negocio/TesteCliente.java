@@ -1,6 +1,7 @@
 package br.ufrpe.poo.banco.negocio;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -82,12 +83,20 @@ public class TesteCliente {
 	 * 
 	 * @throws ClienteJaPossuiContaException
 	 */
-	@Ignore
+
 	@Test(expected = ClienteJaPossuiContaException.class)
 	public void adicionarContaJaExistenteTest() throws ClienteJaPossuiContaException {
 		Cliente c1 = new Cliente("nome", "123");
-		// c1.adicionarConta("1"); // adiciona a conta a 1� vez
+		 c1.adicionarConta("1"); // adiciona a conta a 1� vez
 		c1.adicionarConta("1"); // tentativa de adicionar a mesma conta
+								// novamente
+	}
+	
+	@Test(expected = ClienteJaPossuiContaException.class)
+	public void adicionarContaInvalidaTest() throws ClienteJaPossuiContaException {
+		Cliente c1 = new Cliente("nome", "123");
+		// c1.adicionarConta("1"); // adiciona a conta a 1� vez
+		c1.adicionarConta("-1"); // tentativa de adicionar a mesma conta
 								// novamente
 	}
 
@@ -142,6 +151,15 @@ public class TesteCliente {
 		Cliente cliente2 = new Cliente("João", "12345678901");
 		assertTrue(cliente.equals(cliente2));
 	}
+	@Test
+	
+	public void testEqualsInvalido() {
+		
+		Conta conta = new Conta("1901", 0);
+		Cliente cliente = new Cliente("João", "12345678901");
+		assertFalse(cliente.equals(conta));
+	}
+	
 
 	@Test
 	public void testToString() {

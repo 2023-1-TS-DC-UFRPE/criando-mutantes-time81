@@ -122,6 +122,14 @@ public class TesteConta {
 		assertFalse(c1.equals(s1));
 		
 	}
+	
+	@Test
+	public void testSetNumero() {
+		Conta c1 = new Conta("212",30);
+		c1.setNumero("218");
+		assertEquals(c1.getNumero(),"218");
+		
+	}
 
 
 
